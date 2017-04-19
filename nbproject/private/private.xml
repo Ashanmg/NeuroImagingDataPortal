@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ashan/Documents/NetBeansProjects/NeuroImagingDataPortal/src/neuroimagingdataportal/InternalPanel1.java</file>
-            <file>file:/C:/Users/ashan/Documents/NetBeansProjects/NeuroImagingDataPortal/src/neuroimagingdataportal/MainFrame.java</file>
-            <file>file:/C:/Users/ashan/Documents/NetBeansProjects/NeuroImagingDataPortal/src/neuroimagingdataportal/NeuroImagingDataPortal.java</file>
-            <file>file:/C:/Users/ashan/Documents/NetBeansProjects/NeuroImagingDataPortal/src/neuroimagingdataportal/EdgedetectProcessing.java</file>
-            <file>file:/C:/Users/ashan/Documents/NetBeansProjects/NeuroImagingDataPortal/src/neuroimagingdataportal/InternalPanel2.java</file>
+            <file>file:/C:/Users/ashan/Documents/NeuroImaging/src/neuroimagingdataportal/EdgedetectProcessing.java</file>
+            <file>file:/C:/Users/ashan/Documents/NeuroImaging/src/neuroimagingdataportal/Resize.java</file>
+            <file>file:/C:/Users/ashan/Documents/NeuroImaging/src/neuroimagingdataportal/ProcessAll.java</file>
+            <file>file:/C:/Users/ashan/Documents/NeuroImaging/src/neuroimagingdataportal/SaveDetails.java</file>
+            <file>file:/C:/Users/ashan/Documents/NeuroImaging/src/neuroimagingdataportal/UnzipFiles.java</file>
         </group>
     </open-files>
 </project-private>

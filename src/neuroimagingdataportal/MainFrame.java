@@ -5,7 +5,12 @@
  */
 package neuroimagingdataportal;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Frame;
+import javax.swing.JOptionPane;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
 
 /**
  *
@@ -13,8 +18,10 @@ import java.awt.Dimension;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    Object ObjectRF;
-    
+//    Object ObjectRF;
+    int xmouse;
+    int ymouse;
+
     public MainFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -31,31 +38,34 @@ public class MainFrame extends javax.swing.JFrame {
         panel.setVisible(true);
 
     }
-    
-    public MainFrame(int number){
+
+    public MainFrame(String url, String selectedfile) {
         initComponents();
         this.setLocationRelativeTo(null);
-        int getnumber = number;
-        
-        System.out.println(getnumber);
-       
-        this.dispose();
-        System.out.println(getnumber);
+        String needUrl = url;
+        String sltfile = selectedfile;
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        InternalPanel2 panel = new InternalPanel2(needUrl, selectedfile);
+        Dimension screenSize = jDesktopPane1.getSize();
+        panel.setSize(screenSize.width, screenSize.height);
+        jDesktopPane1.add(panel);
+        int width = panel.getWidth();
+        int height = panel.getHeight();
+        panel.setBounds(((screenSize.width / 2) - (width / 2)), ((screenSize.height / 2) - (height / 2)), width, height);
+        panel.setVisible(true);
 
-        
-    }
-    
-    
-    // this method is used to keep the object referance to further works
-    public void getObject(Object oo){
-        Object ObjectRF = oo;
-    }
-
-    // this method is used to return the object referance to further works 
-    public Object setObject(){ 
-        return ObjectRF;
     }
 
+//    // this method is used to keep the object referance to further works
+//    public void getObject(Object oo){
+//        Object ObjectRF = oo;
+//    }
+//
+//    // this method is used to return the object referance to further works 
+//    public Object setObject(){ 
+//        return ObjectRF;
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,36 +76,164 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblProgetTitle = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        lblClose = new javax.swing.JLabel();
+        lblminimize1 = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jDesktopPane1.setBackground(new java.awt.Color(102, 102, 102));
+        jDesktopPane1.setBackground(new java.awt.Color(88, 88, 88));
+        jDesktopPane1.setForeground(new java.awt.Color(88, 88, 88));
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(1080, 590));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1080, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
-        );
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
+        jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 95, 1090, 10));
+
+        lblProgetTitle.setFont(new java.awt.Font("Avenir", 0, 18)); // NOI18N
+        lblProgetTitle.setForeground(new java.awt.Color(204, 204, 204));
+        lblProgetTitle.setText("Neuroimaging Data Portal for DICOM Data Management");
+        getContentPane().add(lblProgetTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, -1));
+
+        lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 20)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setText("CANNY EDGE DETECT TOOL FOR FACIAL TISSUE THICKNESS MEASUREMENT");
+        getContentPane().add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 760, 40));
+
+        lblClose.setFont(new java.awt.Font("Avenir Next", 1, 18)); // NOI18N
+        lblClose.setText("X");
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCloseMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCloseMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblCloseMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(1073, 7, 17, 20));
+
+        lblminimize1.setFont(new java.awt.Font("Helvetica", 1, 24)); // NOI18N
+        lblminimize1.setText("-");
+        lblminimize1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblminimize1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblminimize1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblminimize1MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblminimize1MousePressed(evt);
+            }
+        });
+        getContentPane().add(lblminimize1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 7, 17, 20));
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/neuroimagingdataportal/Icons/IMGS2.3.png"))); // NOI18N
+        lblBackground.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                lblBackgroundMouseDragged(evt);
+            }
+        });
+        lblBackground.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBackgroundMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblBackgroundMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackgroundMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xmouse, y - ymouse);
+    }//GEN-LAST:event_lblBackgroundMouseDragged
+
+    private void lblBackgroundMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackgroundMousePressed
+        // TODO add your handling code here:
+        xmouse = evt.getX();
+        ymouse = evt.getY();
+    }//GEN-LAST:event_lblBackgroundMousePressed
+
+    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        // TODO add your handling code here:
+        lblClose.setForeground(Color.LIGHT_GRAY);
+        int value = JOptionPane.showConfirmDialog(null, "Do you really want to exit?", "Confirm exit", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (value == 0) {
+            System.exit(0);
+        } else {
+            System.out.println(" do nothing");
+        }
+
+    }//GEN-LAST:event_lblCloseMouseClicked
+
+    private void lblCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseEntered
+        // TODO add your handling code here:
+        setCursor(Cursor.HAND_CURSOR);
+        lblClose.setForeground(Color.white);
+    }//GEN-LAST:event_lblCloseMouseEntered
+
+    private void lblCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseExited
+        // TODO add your handling code here:
+        setCursor(Cursor.DEFAULT_CURSOR);
+        lblClose.setForeground(Color.black);
+    }//GEN-LAST:event_lblCloseMouseExited
+
+    private void lblCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMousePressed
+        // TODO add your handling code here:
+        lblClose.setForeground(Color.LIGHT_GRAY);
+    }//GEN-LAST:event_lblCloseMousePressed
+
+    private void lblminimize1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblminimize1MouseClicked
+        // TODO add your handling code here:
+        lblminimize1.setForeground(Color.LIGHT_GRAY);
+        setState(Frame.ICONIFIED);
+    }//GEN-LAST:event_lblminimize1MouseClicked
+
+    private void lblminimize1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblminimize1MouseEntered
+        // TODO add your handling code here:
+        setCursor(Cursor.HAND_CURSOR);
+        lblminimize1.setForeground(Color.white);
+    }//GEN-LAST:event_lblminimize1MouseEntered
+
+    private void lblminimize1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblminimize1MouseExited
+        // TODO add your handling code here:
+        setCursor(Cursor.DEFAULT_CURSOR);
+        lblminimize1.setForeground(Color.black);
+    }//GEN-LAST:event_lblminimize1MouseExited
+
+    private void lblminimize1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblminimize1MousePressed
+        // TODO add your handling code here:
+        lblminimize1.setForeground(Color.LIGHT_GRAY);
+    }//GEN-LAST:event_lblminimize1MousePressed
 
     /**
      * @param args the command line arguments
@@ -108,7 +246,7 @@ public class MainFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -133,6 +271,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblClose;
+    private javax.swing.JLabel lblProgetTitle;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblminimize1;
     // End of variables declaration//GEN-END:variables
 }

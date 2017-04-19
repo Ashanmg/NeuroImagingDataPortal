@@ -38,10 +38,12 @@ public class EdgedetectProcessing {
     public int count;
     Mat gray, edge,draw;
     public String saveUrl;
+    String currentDirectory;
 
-    public EdgedetectProcessing(String textfield, int count) {
+    public EdgedetectProcessing(String textfield, int count,String path) {
         this.url = textfield;
         this.count = count;
+        this.currentDirectory = path;
 
         System.out.println("url is " + this.url);
 
@@ -90,7 +92,7 @@ public class EdgedetectProcessing {
         
         Mat src2;
 
-        saveUrl = "F:\\Final Semester\\group project\\" + count + "converted.jpg";
+        saveUrl = currentDirectory+ "\\" + count + "converted.jpg";
 
         boolean imwrite;
         
